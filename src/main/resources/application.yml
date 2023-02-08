@@ -1,0 +1,13 @@
+server:
+  port: 8081
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/recycle?serverTimezone=UTC
+    username: root
+    password: 1a1b1c1D
+mybatis:
+  type-aliases-package: top.gaoyuanwang.recyclegarbage.pojo
+  mapper-locations: classpath:top/gaoyuanwang/recyclegarbage/mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
