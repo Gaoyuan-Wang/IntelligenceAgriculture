@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.gaoyuanwang.intelligenceagriculture.mapper.RouteMapper">
+
+    <!--Integer insertRoute(Route route);-->
+    <insert id="insertRoute">
+        INSERT INTO route(route_id,user_id,start_time,start_latitude,start_longitude,end_latitude,end_longitude,end_time)
+        VALUES(null,#{userId},#{startTime},#{startLatitude},#{startLongitude},null,null,null)
+    </insert>
+
+    <!--Integer updateRoute(Route route);-->
+    <update id="updateRoute">
+        UPDATE route SET end_time=#{endTime},end_latitude=#{endLatitude},end_longitude=#{endLongitude} WHERE route_id=#{routeId}
+    </update>
+
+    <!--Integer selectRouteId(Route route);-->
+    <select id="selectRouteId" resultType="Integer">
+        SELECT route_id FROM route WHERE start_time=#{startTime} AND start_latitude=#{startLatitude} AND start_longitude=#{startLongitude} AND user_id=#{userId}
+    </select>
+
+    <!--Integer insertRecord(Route.Record record);-->
+    <insert id="insertRecord">
+        INSERT INTO record(record_id,route_id,latitude,longitude,time)
+        VALUES(null,#{routeId},#{latitude},#{longitude},#{time})
+    </insert>
+
+    <!--List<Route> selectRoute(User user);-->
+    <select id="selectRoute" resultType="Route">
+        SELECT * FROM route WHERE user_id=#{id}
+    </select>
+
+    <!--List<Route.Record> selectRecordsByRouteId(Integer routeId);-->
+    <select id="selectRecordsByRouteId" resultType="top.gaoyuanwang.intelligenceagriculture.pojo.Route$Record">
+        SELECT * FROM record WHERE route_id=#{routeId}
+    </select>
+    
+    <resultMap id="selectRouteResultMap" type="Route">
+        <id property="routeId" column="route_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="startTime" column="start_time"/>
+        <result property="startLatitude" column="start_latitude"/>
+        <result property="startLongitude" column="start_longitude"/>
+        <result property="endTime" column="end_time"/>
+        <result property="endLatitude" column="end_latitude"/>
+        <result property="endLongitude" column="end_longitude"/>
+        <collection property="records"
+                    fetchType="lazy"
+                    select="top.gaoyuanwang.intelligenceagriculture.mapper.RouteMapper.selectRecordByRouteId"
+                    column="route_id"/>
+    </resultMap>
+</mapper>

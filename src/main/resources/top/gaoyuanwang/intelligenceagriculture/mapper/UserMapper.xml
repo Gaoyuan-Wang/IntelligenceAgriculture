@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.gaoyuanwang.intelligenceagriculture.mapper.UserMapper">
+
+    <!--User selectSingleUser(User user);-->
+    <select id="selectSingleUser" resultType="User">
+        SELECT * FROM user WHERE username = #{username} AND password = #{password}
+    </select>
+
+    <!--Integer insertUser(User user);-->
+    <insert id="insertUser">
+        INSERT INTO user(id,username,password) VALUES (null,#{username},#{password})
+    </insert>
+
+    <!--User selectUserById(User user);-->
+    <select id="selectUserById" resultType="User">
+        SELECT * FROM user WHERE id = #{id}
+    </select>
+</mapper>
