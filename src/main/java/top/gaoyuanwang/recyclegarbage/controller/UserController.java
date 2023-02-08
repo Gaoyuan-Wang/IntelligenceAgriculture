@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import top.gaoyuanwang.recyclegarbage.pojo.User;
 import top.gaoyuanwang.recyclegarbage.service.UserService;
 import top.gaoyuanwang.recyclegarbage.util.Response;
+import top.gaoyuanwang.recyclegarbage.util.ResponseUtil;
 
 import javax.annotation.Resource;
 
@@ -22,19 +23,13 @@ public class UserController {
     @RequestMapping("/userLogin")
     public Response<Integer> userLogin(User user) {
         User responseUser = userService.userLogin(user);
-        if(responseUser == null) {
-            return new Response<>(false,null);
-        }
-        return new Response<>(true, responseUser.getId());
+        return ResponseUtil.responseVerify(responseUser.getId());
     }
 
     @ApiOperation("用户注册")
     @RequestMapping("/userRegister")
-    public Response<Integer> userRegister(User user) {
+    public Response<User> userRegister(User user) {
         User responseUser = userService.userRegister(user);
-        if(responseUser == null) {
-            return new Response<>(false,null);
-        }
-        return new Response<>(true, user.getId());
+        return ResponseUtil.responseVerify(responseUser);
     }
 }
