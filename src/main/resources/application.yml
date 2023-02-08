@@ -6,8 +6,19 @@ spring:
     url: jdbc:mysql://localhost:3306/recycle?serverTimezone=UTC
     username: root
     password: 1a1b1c1D
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      stat-view-servlet:
+        enabled: true # 激活控制台
+        url-pattern: /druid/* # 访问路径
+        reset-enable: false # 是否允许重置数据
+        login-username: root # 账号
+        login-password: root # 密码
+      filter:
+        stat:
+          enabled: true # 记录语句统计
+
 mybatis:
-  type-aliases-package: top.gaoyuanwang.recyclegarbage.pojo
-  mapper-locations: classpath:top/gaoyuanwang/recyclegarbage/mapper/*.xml
+  type-aliases-package: top.gaoyuanwang.intelligenceagriculture.pojo
   configuration:
     map-underscore-to-camel-case: true
