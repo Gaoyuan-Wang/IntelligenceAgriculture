@@ -17,7 +17,17 @@ spring:
       filter:
         stat:
           enabled: true # 记录语句统计
-
+  redis:
+    host: 192.168.142.128
+    port: 6379
+    database: 0
+    timeout: 1800000
+    lettuce:
+      pool:
+        max-active: 20
+        max-wait: -1
+        max-idle: 5
+        min-idle: 0
 mybatis:
   type-aliases-package: top.gaoyuanwang.intelligenceagriculture.pojo
   configuration:
